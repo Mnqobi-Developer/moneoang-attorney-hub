@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, User } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,13 +50,15 @@ const Header = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button
-              variant="outline"
-              className="border-legal-navy text-legal-navy hover:bg-legal-navy hover:text-white"
-            >
-              <User className="w-4 h-4 mr-2" />
-              Client Portal
-            </Button>
+            <Link to="/auth">
+              <Button
+                variant="outline"
+                className="border-legal-navy text-legal-navy hover:bg-legal-navy hover:text-white"
+              >
+                <User className="w-4 h-4 mr-2" />
+                Client Portal
+              </Button>
+            </Link>
             <Button className="bg-legal-gold hover:bg-legal-gold/90 text-legal-navy font-semibold">
               Book Consultation
             </Button>
@@ -81,13 +84,15 @@ const Header = () => {
                   </a>
                 ))}
                 <div className="flex flex-col space-y-3 pt-6 border-t border-gray-200">
-                  <Button
-                    variant="outline"
-                    className="border-legal-navy text-legal-navy hover:bg-legal-navy hover:text-white"
-                  >
-                    <User className="w-4 h-4 mr-2" />
-                    Client Portal
-                  </Button>
+                  <Link to="/auth">
+                    <Button
+                      variant="outline"
+                      className="w-full border-legal-navy text-legal-navy hover:bg-legal-navy hover:text-white"
+                    >
+                      <User className="w-4 h-4 mr-2" />
+                      Client Portal
+                    </Button>
+                  </Link>
                   <Button className="bg-legal-gold hover:bg-legal-gold/90 text-legal-navy font-semibold">
                     Book Consultation
                   </Button>
