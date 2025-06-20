@@ -10,12 +10,15 @@ import { useToast } from '@/hooks/use-toast';
 import { Navigate } from 'react-router-dom';
 
 const Auth = () => {
-  const { user, signIn, signUp } = useAuth();
+  const { user, signIn, signUp, userRole } = useAuth();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
 
-  // Redirect if already authenticated
+  // Redirect based on user role
   if (user) {
+    if (userRole === 'admin' || userRole === 'lawyer' || userRole === 'paralegal' || userRole === 'clerk') {
+      return <Navigate to="/admin" replace />;
+    }
     return <Navigate to="/portal" replace />;
   }
 
@@ -27,19 +30,37 @@ const Auth = () => {
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
 
-    const { error } = await signIn(email, password);
-    
-    if (error) {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      });
+    // Check for predefined admin credentials
+    if (email === 'admin@moneoang.co.za' && password === 'MoneoangAdmin2024!') {
+      const { error } = await signIn(email, password);
+      
+      if (error) {
+        toast({
+          title: "Error",
+          description: error.message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Success",
+          description: "Welcome to the Admin Dashboard!",
+        });
+      }
     } else {
-      toast({
-        title: "Success",
-        description: "Welcome back!",
-      });
+      const { error } = await signIn(email, password);
+      
+      if (error) {
+        toast({
+          title: "Error",
+          description: error.message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Success",
+          description: "Welcome back!",
+        });
+      }
     }
     setLoading(false);
   };
@@ -95,7 +116,7 @@ const Auth = () => {
               <CardHeader>
                 <CardTitle>Sign In</CardTitle>
                 <CardDescription>
-                  Access your client account
+                  Access your client account or administrative dashboard
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -127,6 +148,9 @@ const Auth = () => {
                   >
                     {loading ? 'Signing in...' : 'Sign In'}
                   </Button>
+                  <div className="text-xs text-gray-500 text-center mt-2">
+                    Administrator access: Use your admin credentials to access the dashboard
+                  </div>
                 </form>
               </CardContent>
             </Card>
