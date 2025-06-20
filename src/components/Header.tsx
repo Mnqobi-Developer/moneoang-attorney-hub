@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, User } from 'lucide-react';
+import { Menu, User, Settings } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
@@ -50,6 +50,16 @@ const Header = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center space-x-4">
+            <Link to="/admin">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-legal-navy hover:text-legal-gold"
+              >
+                <Settings className="w-4 h-4 mr-2" />
+                Admin
+              </Button>
+            </Link>
             <Link to="/auth">
               <Button
                 variant="outline"
@@ -84,6 +94,15 @@ const Header = () => {
                   </a>
                 ))}
                 <div className="flex flex-col space-y-3 pt-6 border-t border-gray-200">
+                  <Link to="/admin">
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start text-legal-navy hover:text-legal-gold"
+                    >
+                      <Settings className="w-4 h-4 mr-2" />
+                      Admin Dashboard
+                    </Button>
+                  </Link>
                   <Link to="/auth">
                     <Button
                       variant="outline"

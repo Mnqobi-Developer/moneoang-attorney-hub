@@ -4,9 +4,12 @@ import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { FileText, MessageSquare, Briefcase, Clock } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { FileText, MessageSquare, Briefcase, Clock, Calendar, Upload } from 'lucide-react';
 import CasesList from '@/components/portal/CasesList';
 import RecentMessages from '@/components/portal/RecentMessages';
+import BookConsultation from '@/components/portal/BookConsultation';
+import DocumentUpload from '@/components/portal/DocumentUpload';
 
 const PortalDashboard = () => {
   const { data: profile } = useQuery({
@@ -57,6 +60,19 @@ const PortalDashboard = () => {
     },
   });
 
+  const { data: appointmentsCount } = useQuery({
+    queryKey: ['appointments-count'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('appointments')
+        .select('id')
+        .eq('status', 'pending');
+      
+      if (error) throw error;
+      return data.length;
+    },
+  });
+
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
@@ -95,6 +111,16 @@ const PortalDashboard = () => {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Pending Appointments</CardTitle>
+            <Calendar className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{appointmentsCount || 0}</div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Unread Messages</CardTitle>
             <MessageSquare className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
@@ -102,27 +128,44 @@ const PortalDashboard = () => {
             <div className="text-2xl font-bold">{unreadMessages || 0}</div>
           </CardContent>
         </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Completed Cases</CardTitle>
-            <FileText className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{casesStats?.closed || 0}</div>
-          </CardContent>
-        </Card>
       </div>
 
-      {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2">
-          <CasesList />
-        </div>
-        <div>
-          <RecentMessages />
-        </div>
-      </div>
+      {/* Main Content Tabs */}
+      <Tabs defaultValue="overview" className="space-y-6">
+        <TabsList className="grid w-full grid-cols-4">
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="consultation">Book Consultation</TabsTrigger>
+          <TabsTrigger value="documents">Documents</TabsTrigger>
+          <TabsTrigger value="messages">Messages</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="overview" className="space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2">
+              <CasesList />
+            </div>
+            <div>
+              <RecentMessages />
+            </div>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="consultation">
+          <div className="max-w-2xl">
+            <BookConsultation />
+          </div>
+        </TabsContent>
+
+        <TabsContent value="documents">
+          <DocumentUpload />
+        </TabsContent>
+
+        <TabsContent value="messages">
+          <div className="max-w-4xl">
+            <RecentMessages />
+          </div>
+        </TabsContent>
+      </Tabs>
     </main>
   );
 };
