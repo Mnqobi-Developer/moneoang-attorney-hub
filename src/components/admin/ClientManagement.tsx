@@ -127,9 +127,9 @@ const ClientManagement = () => {
                   <div className="flex items-center space-x-2">
                     <Briefcase className="w-4 h-4 text-gray-400" />
                     <span className="text-sm">
-                      Cases: <strong>{client.cases?.length || 0}</strong>
+                      Cases: <strong>{Array.isArray(client.cases) ? client.cases.length : 0}</strong>
                     </span>
-                    {client.cases?.length > 0 && (
+                    {Array.isArray(client.cases) && client.cases.length > 0 && (
                       <div className="flex space-x-1">
                         {client.cases.slice(0, 3).map((case_item: any) => (
                           <Badge
@@ -146,7 +146,7 @@ const ClientManagement = () => {
                   <div className="flex items-center space-x-2">
                     <Calendar className="w-4 h-4 text-gray-400" />
                     <span className="text-sm">
-                      Appointments: <strong>{client.appointments?.length || 0}</strong>
+                      Appointments: <strong>{Array.isArray(client.appointments) ? client.appointments.length : 0}</strong>
                     </span>
                   </div>
                 </div>

@@ -22,7 +22,7 @@ const CaseManagement = () => {
         .from('cases')
         .select(`
           *,
-          profiles (
+          client:profiles!cases_client_id_fkey (
             first_name,
             last_name
           ),
@@ -158,7 +158,7 @@ const CaseManagement = () => {
                     </p>
                     <p className="text-sm text-gray-600 flex items-center mt-1">
                       <User className="w-4 h-4 mr-1" />
-                      Client: {case_item.profiles?.first_name} {case_item.profiles?.last_name}
+                      Client: {case_item.client?.first_name} {case_item.client?.last_name}
                     </p>
                   </div>
                   <div className="flex items-center space-x-2">
