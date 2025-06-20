@@ -30,37 +30,19 @@ const Auth = () => {
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
 
-    // Check for predefined admin credentials
-    if (email === 'admin@moneoang.co.za' && password === 'MoneoangAdmin2024!') {
-      const { error } = await signIn(email, password);
-      
-      if (error) {
-        toast({
-          title: "Error",
-          description: error.message,
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Success",
-          description: "Welcome to the Admin Dashboard!",
-        });
-      }
+    const { error } = await signIn(email, password);
+    
+    if (error) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
     } else {
-      const { error } = await signIn(email, password);
-      
-      if (error) {
-        toast({
-          title: "Error",
-          description: error.message,
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Success",
-          description: "Welcome back!",
-        });
-      }
+      toast({
+        title: "Success",
+        description: "Welcome back!",
+      });
     }
     setLoading(false);
   };
@@ -116,7 +98,7 @@ const Auth = () => {
               <CardHeader>
                 <CardTitle>Sign In</CardTitle>
                 <CardDescription>
-                  Access your client account or administrative dashboard
+                  Access your client account
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -148,9 +130,6 @@ const Auth = () => {
                   >
                     {loading ? 'Signing in...' : 'Sign In'}
                   </Button>
-                  <div className="text-xs text-gray-500 text-center mt-2">
-                    Administrator access: Use your admin credentials to access the dashboard
-                  </div>
                 </form>
               </CardContent>
             </Card>
