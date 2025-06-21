@@ -34,13 +34,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const { data, error } = await supabase
         .from('user_roles')
-        .select(`
-          role,
-          users!user_roles_user_id_fkey (
-            auth_user_id
-          )
-        `)
-        .eq('users.auth_user_id', userId)
+        .select('role')
+        .eq('user_id', userId)
         .single();
       
       if (error) throw error;
@@ -55,7 +50,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
-        console.log('Auth state changed:', event, session?.user?.email);
         setSession(session);
         setUser(session?.user ?? null);
         
@@ -72,7 +66,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     // Check for existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
-      console.log('Initial session check:', session?.user?.email);
       setSession(session);
       setUser(session?.user ?? null);
       
@@ -86,23 +79,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const signIn = async (email: string, password: string) => {
-    console.log('Attempting sign in for:', email);
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
-    if (error) {
-      console.error('Sign in error:', error);
-    }
     return { error };
   };
 
   const signUp = async (email: string, password: string, firstName: string, lastName: string) => {
-    console.log('Attempting sign up for:', email);
     const redirectUrl = `${window.location.origin}/`;
-    
-    // Check if this is the admin email
-    const isAdminEmail = email === 'admin@moneoang.co.za';
     
     const { error } = await supabase.auth.signUp({
       email,
@@ -112,20 +97,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         data: {
           first_name: firstName,
           last_name: lastName,
-          user_type: isAdminEmail ? 'admin' : 'client'
         }
       }
     });
-    
-    if (error) {
-      console.error('Sign up error:', error);
-    }
-    
     return { error };
   };
 
   const signOut = async () => {
-    console.log('Signing out');
     await supabase.auth.signOut();
     setUserRole(null);
   };

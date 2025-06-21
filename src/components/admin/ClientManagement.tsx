@@ -16,7 +16,7 @@ const ClientManagement = () => {
     queryKey: ['admin-clients', searchTerm],
     queryFn: async () => {
       let query = supabase
-        .from('users')
+        .from('profiles')
         .select(`
           *,
           cases (
@@ -29,7 +29,6 @@ const ClientManagement = () => {
             status
           )
         `)
-        .eq('user_type', 'client')
         .order('created_at', { ascending: false });
 
       if (searchTerm) {
@@ -107,7 +106,7 @@ const ClientManagement = () => {
                     <div className="flex items-center space-x-4 text-sm text-gray-600 mt-1">
                       <span className="flex items-center">
                         <Mail className="w-4 h-4 mr-1" />
-                        {client.email}
+                        Email on file
                       </span>
                       {client.phone && (
                         <span className="flex items-center">
@@ -128,9 +127,9 @@ const ClientManagement = () => {
                   <div className="flex items-center space-x-2">
                     <Briefcase className="w-4 h-4 text-gray-400" />
                     <span className="text-sm">
-                      Cases: <strong>{Array.isArray(client.cases) ? client.cases.length : 0}</strong>
+                      Cases: <strong>{client.cases?.length || 0}</strong>
                     </span>
-                    {Array.isArray(client.cases) && client.cases.length > 0 && (
+                    {client.cases?.length > 0 && (
                       <div className="flex space-x-1">
                         {client.cases.slice(0, 3).map((case_item: any) => (
                           <Badge
@@ -147,7 +146,7 @@ const ClientManagement = () => {
                   <div className="flex items-center space-x-2">
                     <Calendar className="w-4 h-4 text-gray-400" />
                     <span className="text-sm">
-                      Appointments: <strong>{Array.isArray(client.appointments) ? client.appointments.length : 0}</strong>
+                      Appointments: <strong>{client.appointments?.length || 0}</strong>
                     </span>
                   </div>
                 </div>

@@ -1,44 +1,39 @@
+
 import React, { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Briefcase, Search, Filter, User, Calendar, FileText } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import { Briefcase, User, Calendar, FileText, Edit } from 'lucide-react';
 import { format } from 'date-fns';
 
 const CaseManagement = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
   const [statusFilter, setStatusFilter] = useState('all');
 
   const { data: cases, isLoading } = useQuery({
-    queryKey: ['admin-cases', searchTerm, statusFilter],
+    queryKey: ['admin-cases', statusFilter],
     queryFn: async () => {
       let query = supabase
         .from('cases')
         .select(`
           *,
-          users!cases_client_id_fkey (
+          profiles (
             first_name,
             last_name
           ),
           documents (
-            id,
-            name
+            id
           ),
           messages (
-            id,
-            content,
-            created_at
+            id
           )
         `)
         .order('created_at', { ascending: false });
-
-      if (searchTerm) {
-        query = query.or(`title.ilike.%${searchTerm}%,case_number.ilike.%${searchTerm}%`);
-      }
 
       if (statusFilter !== 'all') {
         query = query.eq('status', statusFilter);
@@ -50,24 +45,44 @@ const CaseManagement = () => {
     },
   });
 
-  const updateCaseStatus = async (caseId: string, newStatus: string) => {
-    const { error } = await supabase
-      .from('cases')
-      .update({ status: newStatus, updated_at: new Date().toISOString() })
-      .eq('id', caseId);
-
-    if (error) {
-      console.error('Error updating case:', error);
-    }
-  };
+  const updateStatusMutation = useMutation({
+    mutationFn: async ({ id, status }: { id: string; status: string }) => {
+      const { error } = await supabase
+        .from('cases')
+        .update({ status, updated_at: new Date().toISOString() })
+        .eq('id', id);
+      
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      toast({
+        title: "Status Updated",
+        description: "Case status has been updated successfully.",
+      });
+      queryClient.invalidateQueries({ queryKey: ['admin-cases'] });
+    },
+    onError: (error) => {
+      toast({
+        title: "Update Failed",
+        description: "There was an error updating the case status.",
+        variant: "destructive",
+      });
+      console.error('Update error:', error);
+    },
+  });
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'open': return 'bg-green-100 text-green-800';
-      case 'in_progress': return 'bg-blue-100 text-blue-800';
-      case 'closed': return 'bg-gray-100 text-gray-800';
-      case 'on_hold': return 'bg-yellow-100 text-yellow-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'open':
+        return 'bg-blue-100 text-blue-800';
+      case 'in_progress':
+        return 'bg-yellow-100 text-yellow-800';
+      case 'closed':
+        return 'bg-green-100 text-green-800';
+      case 'pending':
+        return 'bg-gray-100 text-gray-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
     }
   };
 
@@ -99,35 +114,27 @@ const CaseManagement = () => {
           Case Management
         </CardTitle>
         <CardDescription>
-          Manage legal cases and track progress
+          View and manage all legal cases
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="flex flex-col md:flex-row gap-4 mb-6">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-            <Input
-              placeholder="Search cases by title or case number..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
-            />
-          </div>
-          <div className="flex items-center space-x-2">
-            <Filter className="w-4 h-4 text-gray-400" />
-            <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger className="w-40">
-                <SelectValue placeholder="Filter by status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Status</SelectItem>
-                <SelectItem value="open">Open</SelectItem>
-                <SelectItem value="in_progress">In Progress</SelectItem>
-                <SelectItem value="on_hold">On Hold</SelectItem>
-                <SelectItem value="closed">Closed</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+        <div className="mb-6 flex justify-between items-center">
+          <Select value={statusFilter} onValueChange={setStatusFilter}>
+            <SelectTrigger className="w-48">
+              <SelectValue placeholder="Filter by status" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Cases</SelectItem>
+              <SelectItem value="open">Open</SelectItem>
+              <SelectItem value="in_progress">In Progress</SelectItem>
+              <SelectItem value="closed">Closed</SelectItem>
+              <SelectItem value="pending">Pending</SelectItem>
+            </SelectContent>
+          </Select>
+          
+          <Button className="bg-legal-gold hover:bg-legal-gold/90 text-legal-navy">
+            Create New Case
+          </Button>
         </div>
 
         {cases?.length === 0 ? (
@@ -145,71 +152,69 @@ const CaseManagement = () => {
               >
                 <div className="flex justify-between items-start mb-3">
                   <div>
-                    <h4 className="font-semibold text-lg">
-                      {case_item.title}
-                    </h4>
+                    <h4 className="font-semibold text-lg">{case_item.title}</h4>
                     <p className="text-sm text-gray-600">
-                      Case #: {case_item.case_number}
+                      Case #{case_item.case_number}
                     </p>
                     <p className="text-sm text-gray-600 flex items-center mt-1">
                       <User className="w-4 h-4 mr-1" />
-                      Client: {case_item.users?.first_name || 'Unknown'} {case_item.users?.last_name || 'Client'}
+                      Client: {case_item.profiles?.first_name} {case_item.profiles?.last_name}
                     </p>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Badge className={getStatusColor(case_item.status)}>
-                      {case_item.status.replace('_', ' ').charAt(0).toUpperCase() + case_item.status.replace('_', ' ').slice(1)}
+                      {case_item.status.replace('_', ' ').toUpperCase()}
                     </Badge>
-                    <Badge variant="outline">
-                      {case_item.case_type}
-                    </Badge>
+                    <Select
+                      value={case_item.status}
+                      onValueChange={(newStatus) => 
+                        updateStatusMutation.mutate({ id: case_item.id, status: newStatus })
+                      }
+                    >
+                      <SelectTrigger className="w-32">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="open">Open</SelectItem>
+                        <SelectItem value="in_progress">In Progress</SelectItem>
+                        <SelectItem value="closed">Closed</SelectItem>
+                        <SelectItem value="pending">Pending</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
                 
                 {case_item.description && (
-                  <p className="text-sm text-gray-600 mb-3">
+                  <p className="text-gray-700 mb-3 line-clamp-2">
                     {case_item.description}
                   </p>
                 )}
                 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-3 text-sm">
-                  <div className="flex items-center text-gray-600">
-                    <Calendar className="w-4 h-4 mr-2" />
+                <div className="grid grid-cols-3 gap-4 mb-3 text-sm text-gray-600">
+                  <div className="flex items-center">
+                    <Calendar className="w-4 h-4 mr-1" />
                     Created: {format(new Date(case_item.created_at), 'MMM dd, yyyy')}
                   </div>
-                  <div className="flex items-center text-gray-600">
-                    <FileText className="w-4 h-4 mr-2" />
-                    Documents: {Array.isArray(case_item.documents) ? case_item.documents.length : 0}
+                  <div className="flex items-center">
+                    <FileText className="w-4 h-4 mr-1" />
+                    Documents: {case_item.documents?.length || 0}
                   </div>
-                  <div className="flex items-center text-gray-600">
-                    <Calendar className="w-4 h-4 mr-2" />
-                    Messages: {Array.isArray(case_item.messages) ? case_item.messages.length : 0}
-                  </div>
-                  <div className="text-sm text-gray-500">
-                    Updated: {format(new Date(case_item.updated_at), 'MMM dd, yyyy')}
+                  <div className="flex items-center">
+                    <span className="capitalize">{case_item.case_type.replace('_', ' ')}</span>
                   </div>
                 </div>
                 
                 <div className="flex space-x-2">
-                  <Select onValueChange={(value) => updateCaseStatus(case_item.id, value)}>
-                    <SelectTrigger className="w-40">
-                      <SelectValue placeholder="Update Status" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="open">Open</SelectItem>
-                      <SelectItem value="in_progress">In Progress</SelectItem>
-                      <SelectItem value="on_hold">On Hold</SelectItem>
-                      <SelectItem value="closed">Closed</SelectItem>
-                    </SelectContent>
-                  </Select>
                   <Button variant="outline" size="sm">
-                    View Details
+                    <Edit className="w-4 h-4 mr-1" />
+                    Edit Case
                   </Button>
                   <Button variant="outline" size="sm">
-                    Add Note
+                    <FileText className="w-4 h-4 mr-1" />
+                    Documents
                   </Button>
                   <Button variant="outline" size="sm">
-                    View Documents
+                    View Messages
                   </Button>
                 </div>
               </div>

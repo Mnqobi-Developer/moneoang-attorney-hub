@@ -10,15 +10,12 @@ import { useToast } from '@/hooks/use-toast';
 import { Navigate } from 'react-router-dom';
 
 const Auth = () => {
-  const { user, signIn, signUp, userRole } = useAuth();
+  const { user, signIn, signUp } = useAuth();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
 
-  // Redirect based on user role
+  // Redirect if already authenticated
   if (user) {
-    if (userRole === 'admin' || userRole === 'lawyer' || userRole === 'paralegal' || userRole === 'clerk') {
-      return <Navigate to="/admin" replace />;
-    }
     return <Navigate to="/portal" replace />;
   }
 

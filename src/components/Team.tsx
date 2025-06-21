@@ -4,23 +4,52 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 
 const Team = () => {
-  const attorney = {
-    id: 1,
-    name: 'S.M. Moneoang',
-    title: 'Principal Attorney & Founder',
-    specialties: ['Civil Litigation', 'Criminal Law', 'Constitutional Law', 'Personal Injury', 'RAF Claims', 'Labour Law'],
-    experience: '15+ years',
-    education: 'LLB (University of the Witwatersrand), Admitted Attorney of the High Court',
-    languages: ['English', 'Afrikaans', 'Sepedi', 'Tsonga'],
-    description: 'Principal attorney and founder of Moneoang S.M. Attorneys Inc. with extensive experience in litigation and a passion for justice. Specializes in complex civil and criminal matters, with a particular focus on constitutional law and personal injury claims.',
-    achievements: [
-      'High Court Advocate',
-      'Legal Aid Board Panel Attorney', 
-      'Community Legal Clinic Volunteer',
-      'RAF Claims Specialist',
-      'Constitutional Law Expert'
-    ]
-  };
+  const teamMembers = [
+    {
+      id: 1,
+      name: 'S.M. Moneoang',
+      title: 'Principal Attorney',
+      specialties: ['Civil Litigation', 'Criminal Law', 'Constitutional Law'],
+      experience: '15+ years',
+      education: 'LLB (University of the Witwatersrand), Admitted Attorney of the High Court',
+      languages: ['English', 'Afrikaans', 'Sepedi', 'Tsonga'],
+      description: 'Principal attorney with extensive experience in litigation and a passion for justice. Specializes in complex civil and criminal matters.',
+      achievements: ['High Court Advocate', 'Legal Aid Board Panel Attorney', 'Community Legal Clinic Volunteer']
+    },
+    {
+      id: 2,
+      name: 'T.R. Maluleke',
+      title: 'Senior Associate',
+      specialties: ['Family Law', 'Immigration Law', 'Estate Planning'],
+      experience: '10+ years',
+      education: 'LLB (University of Limpopo), Postgraduate Diploma in Immigration Law',
+      languages: ['English', 'Afrikaans', 'Tsonga', 'Venda'],
+      description: 'Dedicated family law specialist with a compassionate approach to sensitive legal matters. Expert in immigration procedures.',
+      achievements: ['Family Mediation Certificate', 'Immigration Specialist Certification', 'Women\'s Rights Advocate']
+    },
+    {
+      id: 3,
+      name: 'P.K. Mathebula',
+      title: 'Associate Attorney',
+      specialties: ['Labour Law', 'Debt Collection', 'Commercial Law'],
+      experience: '8+ years',
+      education: 'LLB (University of Pretoria), Labour Law Certificate (UNISA)',
+      languages: ['English', 'Afrikaans', 'Sepedi', 'Tsonga'],
+      description: 'Labour law expert with extensive experience in employment disputes and commercial transactions.',
+      achievements: ['CCMA Arbitrator', 'Commercial Litigation Specialist', 'Small Business Legal Advisor']
+    },
+    {
+      id: 4,
+      name: 'N.A. Chauke',
+      title: 'Junior Attorney',
+      specialties: ['RAF Claims', 'Personal Injury', 'Administrative Law'],
+      experience: '5+ years',
+      education: 'LLB (University of Venda), Certificate in Personal Injury Law',
+      languages: ['English', 'Tsonga', 'Sepedi', 'Venda'],
+      description: 'Rising star specializing in Road Accident Fund claims and personal injury litigation. Known for thorough case preparation.',
+      achievements: ['RAF Claims Specialist', 'Personal Injury Advocate', 'Pro Bono Service Award']
+    }
+  ];
 
   return (
     <section id="team" className="py-20 bg-legal-cream">
@@ -28,48 +57,43 @@ const Team = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="font-playfair text-4xl md:text-5xl font-bold text-legal-navy mb-6">
-            Meet Our Principal Attorney
+            Meet Our Legal Team
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Led by an experienced attorney with a deep understanding of our 
-            community's needs and a commitment to delivering exceptional legal services with integrity and professionalism.
+            Our experienced attorneys combine legal expertise with a deep understanding of our 
+            community's needs. Each team member brings unique skills and dedication to serving our clients.
           </p>
         </div>
 
-        {/* Attorney Profile */}
-        <div className="max-w-4xl mx-auto mb-16">
-          <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 bg-white">
-            <CardContent className="p-8">
-              <div className="flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-8">
-                {/* Profile Image Placeholder */}
-                <div className="flex-shrink-0 mx-auto lg:mx-0">
-                  <div className="w-32 h-32 bg-legal-gold/20 rounded-full flex items-center justify-center">
-                    <span className="font-playfair text-4xl font-bold text-legal-navy">
-                      SM
-                    </span>
-                  </div>
-                </div>
-
-                {/* Profile Content */}
-                <div className="flex-1 space-y-6">
+        {/* Team Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+          {teamMembers.map((member) => (
+            <Card key={member.id} className="overflow-hidden hover:shadow-xl transition-all duration-300 bg-white">
+              <CardContent className="p-8">
+                <div className="flex flex-col space-y-6">
                   {/* Header */}
-                  <div className="text-center lg:text-left">
-                    <h3 className="font-playfair text-3xl font-bold text-legal-navy mb-2">
-                      {attorney.name}
+                  <div className="text-center">
+                    <div className="w-24 h-24 bg-legal-gold/20 rounded-full mx-auto mb-4 flex items-center justify-center">
+                      <span className="font-playfair text-2xl font-bold text-legal-navy">
+                        {member.name.split(' ').map(n => n[0]).join('')}
+                      </span>
+                    </div>
+                    <h3 className="font-playfair text-2xl font-bold text-legal-navy mb-2">
+                      {member.name}
                     </h3>
-                    <p className="text-legal-gold font-semibold text-xl mb-2">
-                      {attorney.title}
+                    <p className="text-legal-gold font-semibold text-lg mb-2">
+                      {member.title}
                     </p>
                     <Badge className="bg-legal-navy text-white">
-                      {attorney.experience} Experience
+                      {member.experience} Experience
                     </Badge>
                   </div>
 
                   {/* Specialties */}
                   <div>
-                    <h4 className="font-semibold text-legal-navy mb-3">Areas of Expertise</h4>
+                    <h4 className="font-semibold text-legal-navy mb-3">Specializations</h4>
                     <div className="flex flex-wrap gap-2">
-                      {attorney.specialties.map((specialty, index) => (
+                      {member.specialties.map((specialty, index) => (
                         <Badge key={index} variant="outline" className="border-legal-gold text-legal-navy">
                           {specialty}
                         </Badge>
@@ -79,78 +103,73 @@ const Team = () => {
 
                   {/* Description */}
                   <p className="text-gray-600 leading-relaxed">
-                    {attorney.description}
+                    {member.description}
                   </p>
-                </div>
-              </div>
 
-              {/* Additional Details */}
-              <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Education */}
-                <div>
-                  <h4 className="font-semibold text-legal-navy mb-2">Education & Qualifications</h4>
-                  <p className="text-sm text-gray-600">
-                    {attorney.education}
-                  </p>
-                </div>
-
-                {/* Languages */}
-                <div>
-                  <h4 className="font-semibold text-legal-navy mb-2">Languages</h4>
-                  <div className="flex flex-wrap gap-1">
-                    {attorney.languages.map((language, index) => (
-                      <span key={index} className="text-sm text-gray-600 bg-gray-100 px-2 py-1 rounded">
-                        {language}
-                      </span>
-                    ))}
+                  {/* Education */}
+                  <div>
+                    <h4 className="font-semibold text-legal-navy mb-2">Education & Qualifications</h4>
+                    <p className="text-sm text-gray-600">
+                      {member.education}
+                    </p>
                   </div>
+
+                  {/* Languages */}
+                  <div>
+                    <h4 className="font-semibold text-legal-navy mb-2">Languages</h4>
+                    <div className="flex flex-wrap gap-1">
+                      {member.languages.map((language, index) => (
+                        <span key={index} className="text-sm text-gray-600 bg-gray-100 px-2 py-1 rounded">
+                          {language}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Achievements */}
+                  <div>
+                    <h4 className="font-semibold text-legal-navy mb-2">Notable Achievements</h4>
+                    <ul className="text-sm text-gray-600 space-y-1">
+                      {member.achievements.map((achievement, index) => (
+                        <li key={index} className="flex items-center">
+                          <div className="w-2 h-2 bg-legal-gold rounded-full mr-3 flex-shrink-0"></div>
+                          {achievement}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Contact Button */}
+                  <Button className="w-full bg-legal-gold hover:bg-legal-gold/90 text-legal-navy font-semibold">
+                    Consult with {member.name.split(' ')[0]}
+                  </Button>
                 </div>
-              </div>
-
-              {/* Achievements */}
-              <div className="mt-6">
-                <h4 className="font-semibold text-legal-navy mb-2">Notable Achievements</h4>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  {attorney.achievements.map((achievement, index) => (
-                    <li key={index} className="flex items-center">
-                      <div className="w-2 h-2 bg-legal-gold rounded-full mr-3 flex-shrink-0"></div>
-                      {achievement}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Contact Button */}
-              <div className="mt-8">
-                <Button className="w-full lg:w-auto bg-legal-gold hover:bg-legal-gold/90 text-legal-navy font-semibold">
-                  Schedule a Consultation with Mr. Moneoang
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          ))}
         </div>
 
-        {/* Firm Values */}
+        {/* Team Values */}
         <div className="bg-legal-navy p-8 rounded-2xl text-white text-center">
           <h3 className="font-playfair text-2xl md:text-3xl font-bold mb-4">
-            Our Commitment to Excellence
+            Our Team Commitment
           </h3>
           <p className="text-lg text-gray-300 mb-6 max-w-3xl mx-auto">
-            Mr. Moneoang is committed to providing exceptional legal services with integrity, 
-            professionalism, and a deep understanding of our clients' needs. With years of experience 
-            and a passion for justice, we ensure the best possible outcomes for every case.
+            Every member of our team is committed to providing exceptional legal services with integrity, 
+            professionalism, and a deep understanding of our clients' needs. We work collaboratively to 
+            ensure the best possible outcomes for every case.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
             <div>
               <h4 className="font-semibold text-legal-gold mb-2">Multilingual Service</h4>
               <p className="text-sm text-gray-300">
-                Serving our diverse community in English, Afrikaans, Sepedi, and Tsonga.
+                Our team speaks multiple languages to serve our diverse community effectively.
               </p>
             </div>
             <div>
               <h4 className="font-semibold text-legal-gold mb-2">Continuous Learning</h4>
               <p className="text-sm text-gray-300">
-                Staying updated with the latest legal developments and best practices.
+                We stay updated with the latest legal developments and best practices.
               </p>
             </div>
             <div>
