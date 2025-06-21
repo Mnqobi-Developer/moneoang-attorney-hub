@@ -16,7 +16,7 @@ const ClientManagement = () => {
     queryKey: ['admin-clients', searchTerm],
     queryFn: async () => {
       let query = supabase
-        .from('profiles')
+        .from('users')
         .select(`
           *,
           cases (
@@ -29,6 +29,7 @@ const ClientManagement = () => {
             status
           )
         `)
+        .eq('user_type', 'client')
         .order('created_at', { ascending: false });
 
       if (searchTerm) {
@@ -106,7 +107,7 @@ const ClientManagement = () => {
                     <div className="flex items-center space-x-4 text-sm text-gray-600 mt-1">
                       <span className="flex items-center">
                         <Mail className="w-4 h-4 mr-1" />
-                        Email on file
+                        {client.email}
                       </span>
                       {client.phone && (
                         <span className="flex items-center">

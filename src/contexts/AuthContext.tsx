@@ -34,8 +34,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const { data, error } = await supabase
         .from('user_roles')
-        .select('role')
-        .eq('user_id', userId)
+        .select(`
+          role,
+          users!user_roles_user_id_fkey (
+            auth_user_id
+          )
+        `)
+        .eq('users.auth_user_id', userId)
         .single();
       
       if (error) throw error;
