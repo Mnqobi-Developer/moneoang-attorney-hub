@@ -22,7 +22,7 @@ const AppointmentManagement = () => {
         .from('appointments')
         .select(`
           *,
-          profiles (
+          users (
             first_name,
             last_name,
             phone
@@ -147,7 +147,7 @@ const AppointmentManagement = () => {
                 <div className="flex justify-between items-start mb-3">
                   <div>
                     <h4 className="font-semibold text-lg">
-                      {appointment.profiles?.first_name} {appointment.profiles?.last_name}
+                      {appointment.users?.first_name} {appointment.users?.last_name}
                     </h4>
                     <p className="text-sm text-gray-600 flex items-center">
                       <User className="w-4 h-4 mr-1" />
@@ -168,10 +168,10 @@ const AppointmentManagement = () => {
                     <Clock className="w-4 h-4 mr-2" />
                     {appointment.preferred_time}
                   </div>
-                  {appointment.profiles?.phone && (
+                  {appointment.users?.phone && (
                     <div className="flex items-center text-sm text-gray-600">
                       <Phone className="w-4 h-4 mr-2" />
-                      {appointment.profiles.phone}
+                      {appointment.users.phone}
                     </div>
                   )}
                   <div className="text-sm text-gray-500">

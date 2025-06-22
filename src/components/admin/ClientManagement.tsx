@@ -16,7 +16,7 @@ const ClientManagement = () => {
     queryKey: ['admin-clients', searchTerm],
     queryFn: async () => {
       let query = supabase
-        .from('profiles')
+        .from('users')
         .select(`
           *,
           cases (
@@ -106,7 +106,7 @@ const ClientManagement = () => {
                     <div className="flex items-center space-x-4 text-sm text-gray-600 mt-1">
                       <span className="flex items-center">
                         <Mail className="w-4 h-4 mr-1" />
-                        Email on file
+                        {client.email}
                       </span>
                       {client.phone && (
                         <span className="flex items-center">
@@ -129,7 +129,7 @@ const ClientManagement = () => {
                     <span className="text-sm">
                       Cases: <strong>{client.cases?.length || 0}</strong>
                     </span>
-                    {client.cases?.length > 0 && (
+                    {client.cases && client.cases.length > 0 && (
                       <div className="flex space-x-1">
                         {client.cases.slice(0, 3).map((case_item: any) => (
                           <Badge
