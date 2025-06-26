@@ -17,7 +17,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
+    <header className="fixed top-0 w-full z-50 bg-legal-navy shadow-lg border-b border-legal-gold/20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
@@ -28,7 +28,7 @@ const Header = () => {
               className="h-12 w-auto"
             />
             <div className="flex flex-col">
-              <h1 className="font-playfair font-bold text-legal-navy text-lg leading-none">
+              <h1 className="font-playfair font-bold text-white text-lg leading-none">
                 MONEOANG S.M
               </h1>
               <span className="text-legal-gold text-sm font-medium">ATTORNEYS INC</span>
@@ -41,9 +41,10 @@ const Header = () => {
               <a
                 key={item.name}
                 href={item.href}
-                className="text-legal-navy hover:text-legal-gold transition-colors duration-200 font-medium"
+                className="text-white hover:text-legal-gold transition-colors duration-300 font-semibold text-sm tracking-wide uppercase relative group"
               >
                 {item.name}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-legal-gold transition-all duration-300 group-hover:w-full"></span>
               </a>
             ))}
           </nav>
@@ -54,7 +55,7 @@ const Header = () => {
               <Button
                 variant="ghost"
                 size="sm"
-                className="text-legal-navy hover:text-legal-gold"
+                className="text-white hover:text-legal-gold hover:bg-white/10 transition-all duration-300"
               >
                 <Settings className="w-4 h-4 mr-2" />
                 Admin
@@ -63,13 +64,13 @@ const Header = () => {
             <Link to="/auth">
               <Button
                 variant="outline"
-                className="border-legal-navy text-legal-navy hover:bg-legal-navy hover:text-white"
+                className="border-2 border-legal-gold text-legal-gold hover:bg-legal-gold hover:text-legal-navy font-semibold transition-all duration-300"
               >
                 <User className="w-4 h-4 mr-2" />
                 Client Portal
               </Button>
             </Link>
-            <Button className="bg-legal-gold hover:bg-legal-gold/90 text-legal-navy font-semibold">
+            <Button className="bg-legal-gold hover:bg-legal-gold/90 text-legal-navy font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
               Book Consultation
             </Button>
           </div>
@@ -77,27 +78,27 @@ const Header = () => {
           {/* Mobile Menu */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" className="text-white hover:text-legal-gold">
                 <Menu className="h-6 w-6" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-80 bg-white">
+            <SheetContent side="right" className="w-80 bg-legal-navy border-l border-legal-gold/20">
               <div className="flex flex-col space-y-6 mt-8">
                 {navItems.map((item) => (
                   <a
                     key={item.name}
                     href={item.href}
-                    className="text-legal-navy hover:text-legal-gold transition-colors duration-200 font-medium text-lg"
+                    className="text-white hover:text-legal-gold transition-colors duration-300 font-semibold text-lg tracking-wide uppercase"
                     onClick={() => setIsOpen(false)}
                   >
                     {item.name}
                   </a>
                 ))}
-                <div className="flex flex-col space-y-3 pt-6 border-t border-gray-200">
+                <div className="flex flex-col space-y-3 pt-6 border-t border-legal-gold/20">
                   <Link to="/admin">
                     <Button
                       variant="ghost"
-                      className="w-full justify-start text-legal-navy hover:text-legal-gold"
+                      className="w-full justify-start text-white hover:text-legal-gold hover:bg-white/10"
                     >
                       <Settings className="w-4 h-4 mr-2" />
                       Admin Dashboard
@@ -106,13 +107,13 @@ const Header = () => {
                   <Link to="/auth">
                     <Button
                       variant="outline"
-                      className="w-full border-legal-navy text-legal-navy hover:bg-legal-navy hover:text-white"
+                      className="w-full border-2 border-legal-gold text-legal-gold hover:bg-legal-gold hover:text-legal-navy font-semibold"
                     >
                       <User className="w-4 h-4 mr-2" />
                       Client Portal
                     </Button>
                   </Link>
-                  <Button className="bg-legal-gold hover:bg-legal-gold/90 text-legal-navy font-semibold">
+                  <Button className="bg-legal-gold hover:bg-legal-gold/90 text-legal-navy font-bold shadow-lg">
                     Book Consultation
                   </Button>
                 </div>
