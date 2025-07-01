@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,9 +7,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 const Contact = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -20,24 +21,47 @@ const Contact = () => {
     urgency: 'normal'
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    setIsSubmitting(true);
     
-    toast({
-      title: "Message Sent Successfully!",
-      description: "We'll get back to you within 24 hours. Thank you for contacting Moneoang SM Attorneys Inc.",
-    });
+    try {
+      console.log('Submitting form data:', formData);
+      
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: formData,
+      });
 
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      caseType: '',
-      message: '',
-      urgency: 'normal'
-    });
+      if (error) {
+        throw error;
+      }
+
+      console.log('Email sent successfully:', data);
+      
+      toast({
+        title: "Message Sent Successfully!",
+        description: "We'll get back to you within 24 hours. Thank you for contacting Moneoang SM Attorneys Inc.",
+      });
+
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        caseType: '',
+        message: '',
+        urgency: 'normal'
+      });
+    } catch (error) {
+      console.error('Error sending email:', error);
+      toast({
+        title: "Error Sending Message",
+        description: "There was a problem sending your message. Please try again or contact us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -238,9 +262,10 @@ const Contact = () => {
                   <Button 
                     type="submit" 
                     size="lg" 
+                    disabled={isSubmitting}
                     className="w-full bg-legal-gold hover:bg-legal-gold/90 text-legal-navy font-semibold"
                   >
-                    Send Message & Request Consultation
+                    {isSubmitting ? 'Sending Message...' : 'Send Message & Request Consultation'}
                   </Button>
                 </form>
               </CardContent>
