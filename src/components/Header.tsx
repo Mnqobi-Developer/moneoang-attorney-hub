@@ -16,6 +16,13 @@ const Header = () => {
     { name: 'Contact', href: '#contact' }
   ];
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <header className="fixed top-0 w-full z-50 bg-legal-navy shadow-lg border-b border-legal-gold/20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -70,7 +77,10 @@ const Header = () => {
                 Client Portal
               </Button>
             </Link>
-            <Button className="bg-legal-gold hover:bg-legal-gold/90 text-legal-navy font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            <Button 
+              onClick={() => scrollToSection('contact')}
+              className="bg-legal-gold hover:bg-legal-gold/90 text-legal-navy font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+            >
               Book Consultation
             </Button>
           </div>
@@ -113,7 +123,13 @@ const Header = () => {
                       Client Portal
                     </Button>
                   </Link>
-                  <Button className="bg-legal-gold hover:bg-legal-gold/90 text-legal-navy font-bold shadow-lg">
+                  <Button 
+                    onClick={() => {
+                      scrollToSection('contact');
+                      setIsOpen(false);
+                    }}
+                    className="bg-legal-gold hover:bg-legal-gold/90 text-legal-navy font-bold shadow-lg"
+                  >
                     Book Consultation
                   </Button>
                 </div>

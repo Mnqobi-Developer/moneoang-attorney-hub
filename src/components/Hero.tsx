@@ -11,6 +11,13 @@ const Hero = () => {
     '/lovable-uploads/dee916a2-190c-4d38-ab8e-b61995a6bb67.png'
   ];
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   // Auto-advance slides every 5 seconds
   useEffect(() => {
     const timer = setInterval(() => {
@@ -117,6 +124,7 @@ const Hero = () => {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.6s' }}>
             <Button 
+              onClick={() => scrollToSection('contact')}
               size="lg" 
               className="bg-legal-gold hover:bg-legal-gold/90 text-legal-navy font-semibold px-8 py-4 text-lg h-auto"
             >
@@ -124,6 +132,7 @@ const Hero = () => {
               Book Free Consultation
             </Button>
             <Button 
+              onClick={() => scrollToSection('services')}
               size="lg" 
               variant="outline" 
               className="border-2 border-white text-white hover:bg-white hover:text-legal-navy px-8 py-4 text-lg h-auto"
