@@ -7,7 +7,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
 
 const Contact = () => {
   const { toast } = useToast();
@@ -26,21 +25,14 @@ const Contact = () => {
     setIsSubmitting(true);
     
     try {
-      console.log('Submitting form data:', formData);
+      // Simulate form submission
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
-      const { data, error } = await supabase.functions.invoke('send-contact-email', {
-        body: formData,
-      });
-
-      if (error) {
-        throw error;
-      }
-
-      console.log('Email sent successfully:', data);
+      console.log('Form submitted:', formData);
       
       toast({
-        title: "Message Sent Successfully!",
-        description: "We'll get back to you within 24 hours. Thank you for contacting Moneoang SM Attorneys Inc.",
+        title: "Message Received!",
+        description: "Thank you for contacting us. We'll get back to you within 24 hours.",
       });
 
       // Reset form
@@ -53,10 +45,10 @@ const Contact = () => {
         urgency: 'normal'
       });
     } catch (error) {
-      console.error('Error sending email:', error);
+      console.error('Error submitting form:', error);
       toast({
-        title: "Error Sending Message",
-        description: "There was a problem sending your message. Please try again or contact us directly.",
+        title: "Error",
+        description: "There was a problem submitting your message. Please try calling us directly.",
         variant: "destructive",
       });
     } finally {

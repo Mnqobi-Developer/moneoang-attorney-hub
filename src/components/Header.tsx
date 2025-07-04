@@ -1,142 +1,142 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, User, Settings } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Menu, X, Phone, Mail } from 'lucide-react';
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const navItems = [
-    { name: 'Home', href: '#home' },
-    { name: 'Services', href: '#services' },
-    { name: 'About', href: '#about' },
-    { name: 'Team', href: '#team' },
-    { name: 'Contact', href: '#contact' }
-  ];
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+      setIsMenuOpen(false);
     }
   };
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-legal-navy shadow-lg border-b border-legal-gold/20">
+    <header className="bg-white shadow-lg sticky top-0 z-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <div className="flex items-center space-x-3">
-            <img 
-              src="/lovable-uploads/05c09952-d8e3-4cad-81b0-1558bb9d5302.png" 
-              alt="Moneoang SM Attorneys Inc Logo" 
-              className="h-12 w-auto"
-            />
-            <div className="flex flex-col">
-              <h1 className="font-playfair font-bold text-white text-lg leading-none">
-                MONEOANG S.M
-              </h1>
-              <span className="text-legal-gold text-sm font-medium">ATTORNEYS INC</span>
-            </div>
+          <div className="flex-shrink-0">
+            <h1 className="text-2xl font-playfair font-bold text-legal-navy">
+              Moneoang SM Attorneys Inc
+            </h1>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-white hover:text-legal-gold transition-colors duration-300 font-semibold text-sm tracking-wide uppercase relative group"
-              >
-                {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-legal-gold transition-all duration-300 group-hover:w-full"></span>
-              </a>
-            ))}
+          <nav className="hidden md:flex space-x-8">
+            <button
+              onClick={() => scrollToSection('home')}
+              className="text-gray-700 hover:text-legal-gold transition-colors"
+            >
+              Home
+            </button>
+            <button
+              onClick={() => scrollToSection('services')}
+              className="text-gray-700 hover:text-legal-gold transition-colors"
+            >
+              Services
+            </button>
+            <button
+              onClick={() => scrollToSection('about')}
+              className="text-gray-700 hover:text-legal-gold transition-colors"
+            >
+              About
+            </button>
+            <button
+              onClick={() => scrollToSection('team')}
+              className="text-gray-700 hover:text-legal-gold transition-colors"
+            >
+              Team
+            </button>
+            <button
+              onClick={() => scrollToSection('contact')}
+              className="text-gray-700 hover:text-legal-gold transition-colors"
+            >
+              Contact
+            </button>
           </nav>
 
-          {/* Desktop CTA */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Link to="/admin">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-white hover:text-legal-gold hover:bg-white/10 transition-all duration-300"
-              >
-                <Settings className="w-4 h-4 mr-2" />
-                Admin
-              </Button>
-            </Link>
-            <Link to="/auth">
-              <Button
-                variant="outline"
-                className="border-2 border-legal-gold text-legal-gold hover:bg-legal-gold hover:text-legal-navy font-semibold transition-all duration-300"
-              >
-                <User className="w-4 h-4 mr-2" />
-                Client Portal
-              </Button>
-            </Link>
+          {/* Contact Info & CTA */}
+          <div className="hidden lg:flex items-center space-x-4">
+            <div className="flex items-center space-x-2 text-sm text-gray-600">
+              <Phone className="w-4 h-4" />
+              <span>076 720 4211</span>
+            </div>
+            <div className="flex items-center space-x-2 text-sm text-gray-600">
+              <Mail className="w-4 h-4" />
+              <span>litigation@moneoangattorneysinc.co.za</span>
+            </div>
             <Button 
               onClick={() => scrollToSection('contact')}
-              className="bg-legal-gold hover:bg-legal-gold/90 text-legal-navy font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              className="bg-legal-gold hover:bg-legal-gold/90 text-legal-navy"
             >
-              Book Consultation
+              Free Consultation
             </Button>
           </div>
 
-          {/* Mobile Menu */}
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="sm" className="text-white hover:text-legal-gold">
-                <Menu className="h-6 w-6" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-80 bg-legal-navy border-l border-legal-gold/20">
-              <div className="flex flex-col space-y-6 mt-8">
-                {navItems.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className="text-white hover:text-legal-gold transition-colors duration-300 font-semibold text-lg tracking-wide uppercase"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {item.name}
-                  </a>
-                ))}
-                <div className="flex flex-col space-y-3 pt-6 border-t border-legal-gold/20">
-                  <Link to="/admin">
-                    <Button
-                      variant="ghost"
-                      className="w-full justify-start text-white hover:text-legal-gold hover:bg-white/10"
-                    >
-                      <Settings className="w-4 h-4 mr-2" />
-                      Admin Dashboard
-                    </Button>
-                  </Link>
-                  <Link to="/auth">
-                    <Button
-                      variant="outline"
-                      className="w-full border-2 border-legal-gold text-legal-gold hover:bg-legal-gold hover:text-legal-navy font-semibold"
-                    >
-                      <User className="w-4 h-4 mr-2" />
-                      Client Portal
-                    </Button>
-                  </Link>
-                  <Button 
-                    onClick={() => {
-                      scrollToSection('contact');
-                      setIsOpen(false);
-                    }}
-                    className="bg-legal-gold hover:bg-legal-gold/90 text-legal-navy font-bold shadow-lg"
-                  >
-                    Book Consultation
-                  </Button>
-                </div>
-              </div>
-            </SheetContent>
-          </Sheet>
+          {/* Mobile menu button */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="text-gray-700 hover:text-legal-gold"
+            >
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <nav className="md:hidden py-4 border-t">
+            <div className="flex flex-col space-y-4">
+              <button
+                onClick={() => scrollToSection('home')}
+                className="text-gray-700 hover:text-legal-gold transition-colors text-left"
+              >
+                Home
+              </button>
+              <button
+                onClick={() => scrollToSection('services')}
+                className="text-gray-700 hover:text-legal-gold transition-colors text-left"
+              >
+                Services
+              </button>
+              <button
+                onClick={() => scrollToSection('about')}
+                className="text-gray-700 hover:text-legal-gold transition-colors text-left"
+              >
+                About
+              </button>
+              <button
+                onClick={() => scrollToSection('team')}
+                className="text-gray-700 hover:text-legal-gold transition-colors text-left"
+              >
+                Team
+              </button>
+              <button
+                onClick={() => scrollToSection('contact')}
+                className="text-gray-700 hover:text-legal-gold transition-colors text-left"
+              >
+                Contact
+              </button>
+              <div className="pt-4 border-t">
+                <div className="flex items-center space-x-2 text-sm text-gray-600 mb-2">
+                  <Phone className="w-4 h-4" />
+                  <span>076 720 4211</span>
+                </div>
+                <Button 
+                  onClick={() => scrollToSection('contact')}
+                  className="w-full bg-legal-gold hover:bg-legal-gold/90 text-legal-navy"
+                >
+                  Free Consultation
+                </Button>
+              </div>
+            </div>
+          </nav>
+        )}
       </div>
     </header>
   );
