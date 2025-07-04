@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -101,27 +100,28 @@ const Services = () => {
     : services.filter(service => service.category === selectedCategory);
 
   return (
-    <section id="services" className="py-20 bg-legal-cream">
+    <section id="services" className="py-12 sm:py-16 lg:py-20 bg-legal-cream">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="font-playfair text-4xl md:text-5xl font-bold text-legal-navy mb-6">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="font-playfair text-3xl sm:text-4xl md:text-5xl font-bold text-legal-navy mb-4 sm:mb-6">
             Our Legal Services
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Comprehensive legal solutions tailored to meet your specific needs. 
             Our experienced attorneys provide expert representation across multiple practice areas.
           </p>
         </div>
 
         {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
+        <div className="flex flex-wrap justify-center gap-2 mb-8 sm:mb-12">
           {categories.map((category) => (
             <Button
               key={category.id}
               variant={selectedCategory === category.id ? "default" : "outline"}
               onClick={() => setSelectedCategory(category.id)}
               className={`
+                text-xs sm:text-sm px-3 sm:px-4 py-2 sm:py-2.5
                 ${selectedCategory === category.id 
                   ? 'bg-legal-gold hover:bg-legal-gold/90 text-legal-navy' 
                   : 'border-legal-navy text-legal-navy hover:bg-legal-navy hover:text-white'
@@ -134,35 +134,35 @@ const Services = () => {
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {filteredServices.map((service) => (
             <Card 
               key={service.id} 
-              className="hover:shadow-xl transition-all duration-300 border-0 shadow-lg bg-white hover:transform hover:-translate-y-2"
+              className="hover:shadow-xl transition-all duration-300 border-0 shadow-lg bg-white hover:transform hover:-translate-y-1 sm:hover:-translate-y-2"
             >
-              <CardHeader className="pb-4">
-                <div className="flex items-start justify-between mb-2">
-                  <CardTitle className="font-playfair text-xl text-legal-navy">
+              <CardHeader className="pb-3 sm:pb-4">
+                <div className="flex items-start justify-between mb-2 gap-2">
+                  <CardTitle className="font-playfair text-lg sm:text-xl text-legal-navy leading-tight">
                     {service.title}
                   </CardTitle>
-                  <Badge variant="secondary" className="bg-legal-gold/20 text-legal-navy">
+                  <Badge variant="secondary" className="bg-legal-gold/20 text-legal-navy text-xs flex-shrink-0">
                     {categories.find(cat => cat.id === service.category)?.name}
                   </Badge>
                 </div>
-                <CardDescription className="text-gray-600 leading-relaxed">
+                <CardDescription className="text-gray-600 leading-relaxed text-sm sm:text-base">
                   {service.description}
                 </CardDescription>
               </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 mb-6">
+              <CardContent className="pt-0">
+                <ul className="space-y-2 mb-4 sm:mb-6">
                   {service.features.map((feature, index) => (
-                    <li key={index} className="flex items-center text-sm text-gray-700">
-                      <div className="w-2 h-2 bg-legal-gold rounded-full mr-3 flex-shrink-0"></div>
+                    <li key={index} className="flex items-center text-xs sm:text-sm text-gray-700">
+                      <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-legal-gold rounded-full mr-3 flex-shrink-0"></div>
                       {feature}
                     </li>
                   ))}
                 </ul>
-                <Button className="w-full bg-legal-navy hover:bg-legal-navy-light text-white">
+                <Button className="w-full bg-legal-navy hover:bg-legal-navy-light text-white text-sm sm:text-base py-2 sm:py-3">
                   Learn More
                 </Button>
               </CardContent>
@@ -171,19 +171,19 @@ const Services = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="text-center mt-16">
-          <div className="bg-legal-navy p-8 rounded-2xl text-white">
-            <h3 className="font-playfair text-2xl md:text-3xl font-bold mb-4">
+        <div className="text-center mt-12 sm:mt-16">
+          <div className="bg-legal-navy p-6 sm:p-8 rounded-2xl text-white">
+            <h3 className="font-playfair text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4">
               Need Legal Assistance?
             </h3>
-            <p className="text-lg mb-6 text-gray-300">
+            <p className="text-base sm:text-lg mb-4 sm:mb-6 text-gray-300">
               Contact us today for a consultation. We're here to help solve your legal problems.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-legal-gold hover:bg-legal-gold/90 text-legal-navy font-semibold">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+              <Button size="lg" className="bg-legal-gold hover:bg-legal-gold/90 text-legal-navy font-semibold text-sm sm:text-base py-3 sm:py-4">
                 Schedule Consultation
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-legal-navy">
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-legal-navy text-sm sm:text-base py-3 sm:py-4">
                 Contact Us
               </Button>
             </div>
