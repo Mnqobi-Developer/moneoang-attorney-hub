@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Phone, Mail } from 'lucide-react';
+import { Menu, X, Phone, Mail, Scale } from 'lucide-react';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,9 +19,13 @@ const Header = () => {
       <div className="container mx-auto px-3 sm:px-4 lg:px-8">
         <div className="flex justify-between items-center py-3 sm:py-4">
           {/* Logo */}
-          <div className="flex-shrink-0 min-w-0">
-            <h1 className="text-lg sm:text-xl md:text-2xl font-playfair font-bold text-legal-navy truncate">
-              Moneoang SM Attorneys Inc
+          <div className="flex items-center space-x-2 flex-shrink-0 min-w-0">
+            <div className="bg-legal-gold p-2 rounded-md">
+              <Scale className="w-4 h-4 sm:w-5 sm:h-5 text-legal-navy" />
+            </div>
+            <h1 className="text-sm sm:text-lg md:text-xl font-playfair font-bold text-legal-navy truncate">
+              <span className="hidden sm:inline">Moneoang SM Attorneys Inc</span>
+              <span className="sm:hidden">Moneoang S.M<br />Attorneys Inc</span>
             </h1>
           </div>
 
