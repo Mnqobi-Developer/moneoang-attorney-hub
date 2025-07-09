@@ -15,69 +15,75 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white shadow-lg sticky top-0 z-50">
-      <div className="container mx-auto px-3 sm:px-4 lg:px-8">
-        <div className="flex justify-between items-center py-3 sm:py-4">
+    <header className="bg-legal-navy shadow-lg sticky top-0 z-50">
+      <div className="container mx-auto px-4 lg:px-8">
+        <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <div className="flex items-center space-x-2 flex-shrink-0 min-w-0">
+          <div className="flex items-center space-x-3 flex-shrink-0">
             <div className="bg-legal-gold p-2 rounded-md">
-              <Scale className="w-4 h-4 sm:w-5 sm:h-5 text-legal-navy" />
+              <Scale className="w-6 h-6 text-legal-navy" />
             </div>
-            <h1 className="text-sm sm:text-lg md:text-xl font-playfair font-bold text-legal-navy truncate">
-              <span className="hidden sm:inline">Moneoang SM Attorneys Inc</span>
-              <span className="sm:hidden">Moneoang S.M<br />Attorneys Inc</span>
-            </h1>
+            <div className="text-white">
+              <h1 className="text-lg font-playfair font-bold leading-tight">
+                MONEOANG S.M
+              </h1>
+              <p className="text-xs text-legal-gold font-medium tracking-wider">
+                ATTORNEYS INC
+              </p>
+            </div>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex space-x-6 xl:space-x-8">
+          <nav className="hidden lg:flex space-x-8">
             <button
               onClick={() => scrollToSection('home')}
-              className="text-gray-700 hover:text-legal-gold transition-colors text-sm xl:text-base"
+              className="text-white hover:text-legal-gold transition-colors font-medium text-sm tracking-wide"
             >
-              Home
+              HOME
             </button>
             <button
               onClick={() => scrollToSection('services')}
-              className="text-gray-700 hover:text-legal-gold transition-colors text-sm xl:text-base"
+              className="text-white hover:text-legal-gold transition-colors font-medium text-sm tracking-wide"
             >
-              Services
+              SERVICES
             </button>
             <button
               onClick={() => scrollToSection('about')}
-              className="text-gray-700 hover:text-legal-gold transition-colors text-sm xl:text-base"
+              className="text-white hover:text-legal-gold transition-colors font-medium text-sm tracking-wide"
             >
-              About
+              ABOUT
             </button>
             <button
               onClick={() => scrollToSection('team')}
-              className="text-gray-700 hover:text-legal-gold transition-colors text-sm xl:text-base"
+              className="text-white hover:text-legal-gold transition-colors font-medium text-sm tracking-wide"
             >
-              Team
+              TEAM
             </button>
             <button
               onClick={() => scrollToSection('contact')}
-              className="text-gray-700 hover:text-legal-gold transition-colors text-sm xl:text-base"
+              className="text-white hover:text-legal-gold transition-colors font-medium text-sm tracking-wide"
             >
-              Contact
+              CONTACT
             </button>
           </nav>
 
-          {/* Contact Info & CTA - Hidden on mobile and tablet */}
-          <div className="hidden xl:flex items-center space-x-3 2xl:space-x-4">
-            <div className="flex items-center space-x-2 text-xs 2xl:text-sm text-gray-600">
-              <Phone className="w-3 h-3 2xl:w-4 2xl:h-4" />
-              <span>076 720 4211</span>
-            </div>
-            <div className="flex items-center space-x-2 text-xs 2xl:text-sm text-gray-600 max-w-48 truncate">
-              <Mail className="w-3 h-3 2xl:w-4 2xl:h-4 flex-shrink-0" />
-              <span className="truncate">litigation@moneoangattorneysinc.co.za</span>
+          {/* Contact Info & CTA */}
+          <div className="hidden xl:flex items-center space-x-6">
+            <div className="flex items-center space-x-4 text-white">
+              <div className="flex items-center space-x-2 text-sm">
+                <Phone className="w-4 h-4" />
+                <span>076 720 4211</span>
+              </div>
+              <div className="flex items-center space-x-2 text-sm">
+                <Mail className="w-4 h-4" />
+                <span>litigation@moneoangattorneysinc.co.za</span>
+              </div>
             </div>
             <Button 
               onClick={() => scrollToSection('contact')}
-              className="bg-legal-gold hover:bg-legal-gold/90 text-legal-navy text-xs 2xl:text-sm px-3 2xl:px-4 py-2"
+              className="bg-legal-gold hover:bg-legal-gold/90 text-legal-navy font-semibold px-6 py-2 text-sm"
             >
-              Free Consultation
+              Book Consultation
             </Button>
           </div>
 
@@ -85,61 +91,61 @@ const Header = () => {
           <div className="lg:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-700 hover:text-legal-gold p-2"
+              className="text-white hover:text-legal-gold p-2"
             >
-              {isMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <nav className="lg:hidden py-4 border-t">
+          <nav className="lg:hidden py-4 border-t border-legal-gold/30">
             <div className="flex flex-col space-y-4">
               <button
                 onClick={() => scrollToSection('home')}
-                className="text-gray-700 hover:text-legal-gold transition-colors text-left py-2"
+                className="text-white hover:text-legal-gold transition-colors text-left py-2 font-medium"
               >
-                Home
+                HOME
               </button>
               <button
                 onClick={() => scrollToSection('services')}
-                className="text-gray-700 hover:text-legal-gold transition-colors text-left py-2"
+                className="text-white hover:text-legal-gold transition-colors text-left py-2 font-medium"
               >
-                Services
+                SERVICES
               </button>
               <button
                 onClick={() => scrollToSection('about')}
-                className="text-gray-700 hover:text-legal-gold transition-colors text-left py-2"
+                className="text-white hover:text-legal-gold transition-colors text-left py-2 font-medium"
               >
-                About
+                ABOUT
               </button>
               <button
                 onClick={() => scrollToSection('team')}
-                className="text-gray-700 hover:text-legal-gold transition-colors text-left py-2"
+                className="text-white hover:text-legal-gold transition-colors text-left py-2 font-medium"
               >
-                Team
+                TEAM
               </button>
               <button
                 onClick={() => scrollToSection('contact')}
-                className="text-gray-700 hover:text-legal-gold transition-colors text-left py-2"
+                className="text-white hover:text-legal-gold transition-colors text-left py-2 font-medium"
               >
-                Contact
+                CONTACT
               </button>
-              <div className="pt-4 border-t space-y-3">
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
+              <div className="pt-4 border-t border-legal-gold/30 space-y-3">
+                <div className="flex items-center space-x-2 text-sm text-white">
                   <Phone className="w-4 h-4" />
                   <span>076 720 4211</span>
                 </div>
-                <div className="flex items-center space-x-2 text-xs text-gray-600">
+                <div className="flex items-center space-x-2 text-xs text-white">
                   <Mail className="w-4 h-4 flex-shrink-0" />
                   <span className="break-all">litigation@moneoangattorneysinc.co.za</span>
                 </div>
                 <Button 
                   onClick={() => scrollToSection('contact')}
-                  className="w-full bg-legal-gold hover:bg-legal-gold/90 text-legal-navy text-sm py-3"
+                  className="w-full bg-legal-gold hover:bg-legal-gold/90 text-legal-navy font-semibold py-3"
                 >
-                  Free Consultation
+                  Book Consultation
                 </Button>
               </div>
             </div>
