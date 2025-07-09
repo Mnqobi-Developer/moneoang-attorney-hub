@@ -1,24 +1,523 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moneoang SM Attorneys Inc - Legal Solutions in Letaba</title>
-    <meta name="description" content="Professional legal services in Letaba. Specializing in civil litigation, family law, immigration, and more. Contact us for expert legal consultation." />
-    <meta name="author" content="Moneoang SM Attorneys Inc" />
+    <meta name="description" content="Professional legal services in Letaba. Specializing in civil litigation, family law, immigration, and more. Contact us for expert legal consultation.">
+    <meta name="author" content="Moneoang SM Attorneys Inc">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <meta property="og:title" content="Moneoang SM Attorneys Inc - Legal Solutions">
+    <meta property="og:description" content="Professional legal services in Letaba. Expert attorneys providing solutions for your legal problems.">
+    <meta property="og:type" content="website">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header id="header" class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <div class="logo">
+                    <div class="logo-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+                            <path d="M5 3v4"/>
+                            <path d="M19 17v4"/>
+                            <path d="M3 5h4"/>
+                            <path d="M17 19h4"/>
+                        </svg>
+                    </div>
+                    <h1 class="logo-text">
+                        <span class="logo-full">Moneoang SM Attorneys Inc</span>
+                        <span class="logo-mobile">Moneoang S.M<br>Attorneys Inc</span>
+                    </h1>
+                </div>
 
-    <meta property="og:title" content="Moneoang SM Attorneys Inc - Legal Solutions" />
-    <meta property="og:description" content="Professional legal services in Letaba. Expert attorneys providing solutions for your legal problems." />
-    <meta property="og:type" content="website" />
-  </head>
+                <!-- Desktop Navigation -->
+                <nav class="nav-desktop">
+                    <a href="#home" class="nav-link">Home</a>
+                    <a href="#services" class="nav-link">Services</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#team" class="nav-link">Team</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </nav>
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+                <!-- Contact Info & CTA -->
+                <div class="header-cta">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                            </svg>
+                            <span>076 720 4211</span>
+                        </div>
+                        <div class="contact-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                            <span>litigation@moneoangattorneysinc.co.za</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-sm" onclick="scrollToSection('contact')">
+                        Free Consultation
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <span class="hamburger"></span>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <nav class="nav-mobile" id="mobileNav">
+                <a href="#home" class="nav-link" onclick="closeMobileMenu()">Home</a>
+                <a href="#services" class="nav-link" onclick="closeMobileMenu()">Services</a>
+                <a href="#about" class="nav-link" onclick="closeMobileMenu()">About</a>
+                <a href="#team" class="nav-link" onclick="closeMobileMenu()">Team</a>
+                <a href="#contact" class="nav-link" onclick="closeMobileMenu()">Contact</a>
+                <div class="mobile-contact">
+                    <div class="contact-item">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                        <span>076 720 4211</span>
+                    </div>
+                    <div class="contact-item">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                        <span>litigation@moneoangattorneysinc.co.za</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="scrollToSection('contact'); closeMobileMenu();">
+                        Free Consultation
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <img src="/lovable-uploads/6bbbd66e-2a23-433b-95de-706cda27b90f.png" alt="Courthouse 1" class="hero-image active">
+            <img src="/lovable-uploads/dee916a2-190c-4d38-ab8e-b61995a6bb67.png" alt="Courthouse 2" class="hero-image">
+            <div class="hero-overlay"></div>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <button class="hero-nav prev" onclick="previousSlide()" aria-label="Previous image">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="m15 18-6-6 6-6"/>
+            </svg>
+        </button>
+        <button class="hero-nav next" onclick="nextSlide()" aria-label="Next image">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="m9 18 6-6-6-6"/>
+            </svg>
+        </button>
+
+        <!-- Slide Indicators -->
+        <div class="hero-indicators">
+            <button class="indicator active" onclick="goToSlide(0)"></button>
+            <button class="indicator" onclick="goToSlide(1)"></button>
+        </div>
+
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Solution To Your <span class="text-gold">Legal Problems</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Expert legal representation in Letaba. Specializing in civil litigation, family law, immigration, and comprehensive legal services.
+                </p>
+                <div class="hero-badges">
+                    <span class="badge">Boramelao</span>
+                    <span class="badge">Vaylmeri</span>
+                    <span class="badge">Prokureurs</span>
+                </div>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary btn-lg" onclick="scrollToSection('contact')">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M8 2v4"/>
+                            <path d="M16 2v4"/>
+                            <rect width="18" height="18" x="3" y="4" rx="2"/>
+                            <path d="M3 10h18"/>
+                        </svg>
+                        Book Free Consultation
+                    </button>
+                    <button class="btn btn-outline btn-lg" onclick="scrollToSection('services')">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        Our Services
+                    </button>
+                </div>
+                <div class="hero-contact">
+                    <div class="contact-group">
+                        <h3>Phone</h3>
+                        <p>076 720 4211</p>
+                        <p>072 920 0198</p>
+                    </div>
+                    <div class="contact-group">
+                        <h3>Email</h3>
+                        <p>litigation@moneoangattorneysinc.co.za</p>
+                    </div>
+                    <div class="contact-group">
+                        <h3>Address</h3>
+                        <p>No 1 Bankuna Street</p>
+                        <p>Nkowankowa-A, Letaba 0870</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Legal Services</h2>
+                <p>Comprehensive legal solutions tailored to meet your specific needs. Our experienced attorneys provide expert representation across multiple practice areas.</p>
+            </div>
+
+            <div class="service-filters">
+                <button class="filter-btn active" onclick="filterServices('all')">All Services</button>
+                <button class="filter-btn" onclick="filterServices('litigation')">Litigation</button>
+                <button class="filter-btn" onclick="filterServices('family')">Family Law</button>
+                <button class="filter-btn" onclick="filterServices('immigration')">Immigration</button>
+                <button class="filter-btn" onclick="filterServices('estate')">Estate Planning</button>
+                <button class="filter-btn" onclick="filterServices('business')">Business Law</button>
+            </div>
+
+            <div class="services-grid" id="servicesGrid">
+                <!-- Services will be populated by JavaScript -->
+            </div>
+
+            <div class="services-cta">
+                <h3>Need Legal Assistance?</h3>
+                <p>Contact us today for a consultation. We're here to help solve your legal problems.</p>
+                <div class="cta-buttons">
+                    <button class="btn btn-primary btn-lg" onclick="scrollToSection('contact')">Schedule Consultation</button>
+                    <button class="btn btn-outline btn-lg" onclick="scrollToSection('contact')">Contact Us</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>About Moneoang SM Attorneys Inc</h2>
+                <p>Established as a premier legal practice in Letaba, we provide comprehensive legal services with a commitment to excellence, integrity, and client satisfaction.</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Cases Won</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Client Satisfaction</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Emergency Support</div>
+                </div>
+            </div>
+
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Our Story</h3>
+                    <p>Moneoang SM Attorneys Inc was founded with a vision to provide exceptional legal services to the communities of Letaba and surrounding areas. Our practice has grown from a small local firm to a respected legal institution known for its professional excellence and commitment to justice.</p>
+                    <p>We understand that legal matters can be overwhelming and stressful. That's why we've built our practice around the principle of putting our clients first. Every case we handle receives our full attention and expertise, regardless of its size or complexity.</p>
+                    <p>Our multilingual team is fluent in English, Afrikaans, and several African languages, ensuring that language is never a barrier to accessing quality legal representation. We serve clients from all walks of life with equal dedication and respect.</p>
+                </div>
+                <div class="about-mission">
+                    <h3>Our Mission</h3>
+                    <div class="mission-quote">
+                        <p>"To provide accessible, professional, and effective legal solutions while upholding the highest standards of legal ethics and client service. We are committed to being your trusted legal partner in achieving justice and protecting your rights."</p>
+                    </div>
+                    <div class="mission-badges">
+                        <span class="badge">Multilingual Service</span>
+                        <span class="badge">Community Focused</span>
+                        <span class="badge">Professional Excellence</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="values-section">
+                <h3>Our Core Values</h3>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon"></div>
+                        <h4>Integrity</h4>
+                        <p>We uphold the highest ethical standards and maintain complete transparency in all our dealings.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon"></div>
+                        <h4>Excellence</h4>
+                        <p>Our commitment to legal excellence ensures the best possible outcomes for our clients.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon"></div>
+                        <h4>Dedication</h4>
+                        <p>We are dedicated to fighting for justice and protecting our clients' rights and interests.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon"></div>
+                        <h4>Accessibility</h4>
+                        <p>Legal services should be accessible to everyone. We offer flexible payment options and multilingual support.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="team">
+        <div class="container">
+            <div class="section-header">
+                <h2>Meet Our Legal Team</h2>
+                <p>Our experienced attorneys combine legal expertise with a deep understanding of our community's needs. Each team member brings unique skills and dedication to serving our clients.</p>
+            </div>
+
+            <div class="team-grid">
+                <!-- Team members will be populated by JavaScript -->
+            </div>
+
+            <div class="team-commitment">
+                <h3>Our Team Commitment</h3>
+                <p>Every member of our team is committed to providing exceptional legal services with integrity, professionalism, and a deep understanding of our clients' needs. We work collaboratively to ensure the best possible outcomes for every case.</p>
+                <div class="commitment-grid">
+                    <div class="commitment-item">
+                        <h4>Multilingual Service</h4>
+                        <p>Our team speaks multiple languages to serve our diverse community effectively.</p>
+                    </div>
+                    <div class="commitment-item">
+                        <h4>Continuous Learning</h4>
+                        <p>We stay updated with the latest legal developments and best practices.</p>
+                    </div>
+                    <div class="commitment-item">
+                        <h4>Community Focus</h4>
+                        <p>Deep roots in the community with a commitment to accessible legal services.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contact Our Legal Team</h2>
+                <p>Ready to discuss your legal matter? Get in touch with our experienced attorneys for professional legal advice and representation.</p>
+            </div>
+
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="info-card">
+                        <h4>Office Information</h4>
+                        <div class="info-item">
+                            <h5>Address</h5>
+                            <p>No 1 Bankuna Street<br>Nkowankowa-A<br>Letaba 0870</p>
+                        </div>
+                        <div class="info-item">
+                            <h5>Phone Numbers</h5>
+                            <p>076 720 4211</p>
+                            <p>072 920 0198</p>
+                        </div>
+                        <div class="info-item">
+                            <h5>Email</h5>
+                            <p>litigation@moneoangattorneysinc.co.za</p>
+                        </div>
+                        <div class="info-item">
+                            <h5>Office Hours</h5>
+                            <p>Monday - Friday: 8:00 AM - 5:00 PM<br>Saturday: 9:00 AM - 1:00 PM<br>Sunday: Emergency Only</p>
+                        </div>
+                    </div>
+
+                    <div class="emergency-card">
+                        <h4>Emergency Legal Assistance</h4>
+                        <p>For urgent legal matters requiring immediate attention, call our emergency hotline.</p>
+                        <div class="emergency-number">24/7 Emergency: 076 720 4211</div>
+                    </div>
+                </div>
+
+                <div class="contact-form-container">
+                    <div class="form-card">
+                        <h3>Request Legal Consultation</h3>
+                        <p>Fill out the form below and we'll get back to you within 24 hours.</p>
+                        <form id="contactForm" class="contact-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name">Full Name *</label>
+                                    <input type="text" id="name" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone Number *</label>
+                                    <input type="tel" id="phone" name="phone" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="caseType">Legal Matter Type *</label>
+                                    <select id="caseType" name="caseType" required>
+                                        <option value="">Select case type</option>
+                                        <option value="civil-litigation">Civil Litigation</option>
+                                        <option value="criminal-litigation">Criminal Litigation</option>
+                                        <option value="family-law">Family Law</option>
+                                        <option value="immigration-law">Immigration Law</option>
+                                        <option value="unlawful-arrest">Unlawful Arrest</option>
+                                        <option value="debt-collection">Debt Collection</option>
+                                        <option value="raf-claims">RAF Claims</option>
+                                        <option value="tribal-authority-law">Tribal Authority's Law</option>
+                                        <option value="estate-administration">Estate Administration</option>
+                                        <option value="labour-law">Labour Law</option>
+                                        <option value="contract-drafting">Contract Drafting</option>
+                                        <option value="general-consultation">General Consultation</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="urgency">Urgency Level</label>
+                                    <select id="urgency" name="urgency">
+                                        <option value="low">Low - General inquiry</option>
+                                        <option value="normal" selected>Normal - Standard consultation</option>
+                                        <option value="high">High - Urgent matter</option>
+                                        <option value="emergency">Emergency - Immediate assistance</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Describe Your Legal Matter *</label>
+                                <textarea id="message" name="message" rows="5" placeholder="Please provide details about your legal matter. Include relevant dates, parties involved, and specific questions you have." required></textarea>
+                            </div>
+                            <div class="confidentiality-notice">
+                                <p><strong>Confidentiality Notice:</strong> All information shared through this form is treated with strict confidentiality and attorney-client privilege applies once we begin representing you.</p>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg btn-full">
+                                Send Message & Request Consultation
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="/lovable-uploads/05c09952-d8e3-4cad-81b0-1558bb9d5302.png" alt="Moneoang SM Attorneys Inc Logo" class="footer-logo-img">
+                        <div class="footer-logo-text">
+                            <h3>MONEOANG S.M</h3>
+                            <span>ATTORNEYS INC</span>
+                        </div>
+                    </div>
+                    <p>Professional legal services in Letaba. Committed to providing solutions to your legal problems with integrity and excellence.</p>
+                    <div class="footer-languages">
+                        <p><strong>Boramelao • Vaylmeri • Prokureurs</strong></p>
+                        <p>Multilingual legal services available</p>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#team">Team</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Legal Services</h4>
+                    <ul>
+                        <li>Civil Litigation</li>
+                        <li>Criminal Litigation</li>
+                        <li>Family Law</li>
+                        <li>Immigration Law</li>
+                        <li>Estate Planning</li>
+                        <li>Labour Law</li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <div class="footer-contact">
+                        <div class="contact-detail">
+                            <h5>Address</h5>
+                            <p>No 1 Bankuna Street<br>Nkowankowa-A<br>Letaba 0870</p>
+                        </div>
+                        <div class="contact-detail">
+                            <h5>Phone</h5>
+                            <p>076 720 4211</p>
+                            <p>072 920 0198</p>
+                        </div>
+                        <div class="contact-detail">
+                            <h5>Email</h5>
+                            <p>litigation@moneoangattorneysinc.co.za</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-cta">
+                <h3>Need Legal Assistance?</h3>
+                <p>Don't wait - contact our experienced legal team today for professional advice and representation for your legal matters.</p>
+                <div class="cta-buttons">
+                    <button class="btn btn-primary" onclick="scrollToSection('contact')">Schedule Free Consultation</button>
+                    <button class="btn btn-outline">Emergency Legal Help</button>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    <p>&copy; <span id="currentYear"></span> Moneoang SM Attorneys Inc. All rights reserved.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Professional Conduct</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <div class="toast-content">
+            <span class="toast-message"></span>
+            <button class="toast-close" onclick="hideToast()">&times;</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
 </html>
