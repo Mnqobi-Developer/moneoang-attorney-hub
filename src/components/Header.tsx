@@ -19,19 +19,17 @@ const Header = () => {
   return (
     <header className="fixed top-0 w-full z-50 bg-legal-navy shadow-lg border-b border-legal-gold/20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
-          <div className="flex items-center space-x-3">
-            <img 
-              src="/lovable-uploads/05c09952-d8e3-4cad-81b0-1558bb9d5302.png" 
-              alt="Moneoang SM Attorneys Inc Logo" 
-              className="h-12 w-auto"
-            />
+          <div className="flex items-center space-x-2 sm:space-x-3">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-legal-gold rounded-lg flex items-center justify-center">
+              <span className="text-legal-navy font-bold text-lg sm:text-xl">?</span>
+            </div>
             <div className="flex flex-col">
-              <h1 className="font-playfair font-bold text-white text-lg leading-none">
+              <h1 className="font-playfair font-bold text-white text-sm sm:text-lg leading-none">
                 MONEOANG S.M
               </h1>
-              <span className="text-legal-gold text-sm font-medium">ATTORNEYS INC</span>
+              <span className="text-legal-gold text-xs sm:text-sm font-medium">ATTORNEYS INC</span>
             </div>
           </div>
 
