@@ -43,6 +43,10 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Legal theme colors - exact colors from your design */
+    --legal-navy: 30 58% 25%;  /* #1e3a8a converted to HSL */
+    --legal-gold: 45 93% 56%;  /* #fbbf24 converted to HSL */
   }
 
   .dark {
