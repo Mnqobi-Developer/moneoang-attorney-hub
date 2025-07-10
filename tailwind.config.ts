@@ -63,11 +63,14 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Legal theme colors - exact from your design
-				'legal-navy': '#1e3a8a',
-				'legal-gold': '#fbbf24',
-				'legal-gold-dark': '#f59e0b',
-				'legal-navy-light': '#3b82f6',
+				// Legal theme colors
+				legal: {
+					navy: '#1a2332',
+					gold: '#d4af37',
+					'gold-light': '#f0d668',
+					'navy-light': '#2a3441',
+					cream: '#faf8f3'
+				}
 			},
 			fontFamily: {
 				'playfair': ['Playfair Display', 'serif'],
