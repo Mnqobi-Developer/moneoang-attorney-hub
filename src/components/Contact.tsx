@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,6 +10,7 @@ import { useToast } from '@/hooks/use-toast';
 
 const Contact = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -20,24 +20,52 @@ const Contact = () => {
     urgency: 'normal'
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    setIsSubmitting(true);
     
-    toast({
-      title: "Message Sent Successfully!",
-      description: "We'll get back to you within 24 hours. Thank you for contacting Moneoang SM Attorneys Inc.",
-    });
+    try {
+      console.log('Submitting form:', formData);
+      
+      const response = await fetch('https://nuflnieornkewbghrhgb.supabase.co/functions/v1/send-contact-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      caseType: '',
-      message: '',
-      urgency: 'normal'
-    });
+      const result = await response.json();
+      console.log('Email response:', result);
+
+      if (result.success) {
+        toast({
+          title: "Message Sent Successfully!",
+          description: "We'll get back to you within 24 hours. Thank you for contacting Moneoang SM Attorneys Inc.",
+        });
+
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          caseType: '',
+          message: '',
+          urgency: 'normal'
+        });
+      } else {
+        throw new Error(result.error || 'Failed to send message');
+      }
+    } catch (error) {
+      console.error('Error sending email:', error);
+      toast({
+        title: "Error Sending Message",
+        description: "There was a problem sending your message. Please try again or call us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -61,6 +89,7 @@ const Contact = () => {
 
   return (
     <section id="contact" className="py-20 bg-gradient-to-br from-legal-navy to-legal-navy-light">
+      
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -151,6 +180,7 @@ const Contact = () => {
                         placeholder="Your full name"
                         required
                         className="mt-2"
+                        disabled={isSubmitting}
                       />
                     </div>
                     <div>
@@ -163,6 +193,7 @@ const Contact = () => {
                         placeholder="Your phone number"
                         required
                         className="mt-2"
+                        disabled={isSubmitting}
                       />
                     </div>
                   </div>
@@ -177,19 +208,24 @@ const Contact = () => {
                       placeholder="your.email@example.com"
                       required
                       className="mt-2"
+                      disabled={isSubmitting}
                     />
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="caseType">Legal Matter Type *</Label>
-                      <Select onValueChange={(value) => handleInputChange('caseType', value)}>
+                      <Select 
+                        onValueChange={(value) => handleInputChange('caseType', value)}
+                        disabled={isSubmitting}
+                        required
+                      >
                         <SelectTrigger className="mt-2">
                           <SelectValue placeholder="Select case type" />
                         </SelectTrigger>
                         <SelectContent>
                           {caseTypes.map((type) => (
-                            <SelectItem key={type} value={type.toLowerCase().replace(/\s+/g, '-')}>
+                            <SelectItem key={type} value={type}>
                               {type}
                             </SelectItem>
                           ))}
@@ -201,6 +237,7 @@ const Contact = () => {
                       <Select 
                         value={formData.urgency} 
                         onValueChange={(value) => handleInputChange('urgency', value)}
+                        disabled={isSubmitting}
                       >
                         <SelectTrigger className="mt-2">
                           <SelectValue />
@@ -224,6 +261,7 @@ const Contact = () => {
                       placeholder="Please provide details about your legal matter. Include relevant dates, parties involved, and specific questions you have."
                       required
                       className="mt-2 min-h-[120px]"
+                      disabled={isSubmitting}
                     />
                   </div>
 
@@ -239,8 +277,9 @@ const Contact = () => {
                     type="submit" 
                     size="lg" 
                     className="w-full bg-legal-gold hover:bg-legal-gold/90 text-legal-navy font-semibold"
+                    disabled={isSubmitting}
                   >
-                    Send Message & Request Consultation
+                    {isSubmitting ? 'Sending...' : 'Send Message & Request Consultation'}
                   </Button>
                 </form>
               </CardContent>
