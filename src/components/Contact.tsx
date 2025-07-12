@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -28,46 +27,7 @@ const Contact = () => {
     try {
       console.log('Submitting form:', formData);
       
-      // Using EmailJS or similar service - you can replace this with your preferred email service
-      const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          caseType: formData.caseType,
-          message: formData.message,
-          urgency: formData.urgency,
-          _replyto: formData.email,
-          _subject: `New Contact Form Submission - ${formData.caseType}`,
-        }),
-      });
-
-      if (response.ok) {
-        toast({
-          title: "Message Sent Successfully!",
-          description: "Thank you for contacting us. We'll get back to you within 24 hours.",
-        });
-
-        // Reset form
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          caseType: '',
-          message: '',
-          urgency: 'normal'
-        });
-      } else {
-        throw new Error('Failed to send message');
-      }
-    } catch (error) {
-      console.error('Error sending email:', error);
-      
-      // Fallback to mailto link
+      // Create mailto link with form data
       const subject = encodeURIComponent(`New Contact Form Submission - ${formData.caseType}`);
       const body = encodeURIComponent(`
 Name: ${formData.name}
@@ -85,6 +45,23 @@ ${formData.message}
       toast({
         title: "Opening Email Client",
         description: "We've opened your default email client to send the message.",
+      });
+
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        caseType: '',
+        message: '',
+        urgency: 'normal'
+      });
+    } catch (error) {
+      console.error('Error opening email client:', error);
+      toast({
+        title: "Error Opening Email Client",
+        description: "Please try again or contact us directly at litigation@moneoangattorneysinc.co.za",
+        variant: "destructive",
       });
     } finally {
       setIsSubmitting(false);
@@ -302,7 +279,7 @@ ${formData.message}
                     className="w-full bg-legal-gold hover:bg-legal-gold/90 text-legal-navy font-semibold"
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? 'Sending...' : 'Send Message & Request Consultation'}
+                    {isSubmitting ? 'Opening Email Client...' : 'Send Message via Email'}
                   </Button>
                 </form>
               </CardContent>
