@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -27,21 +28,28 @@ const Contact = () => {
     try {
       console.log('Submitting form:', formData);
       
-      const response = await fetch('https://nuflnieornkewbghrhgb.supabase.co/functions/v1/send-contact-email', {
+      // Using EmailJS or similar service - you can replace this with your preferred email service
+      const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          caseType: formData.caseType,
+          message: formData.message,
+          urgency: formData.urgency,
+          _replyto: formData.email,
+          _subject: `New Contact Form Submission - ${formData.caseType}`,
+        }),
       });
 
-      const result = await response.json();
-      console.log('Email response:', result);
-
-      if (result.success) {
+      if (response.ok) {
         toast({
           title: "Message Sent Successfully!",
-          description: "We'll get back to you within 24 hours. Thank you for contacting Moneoang SM Attorneys Inc.",
+          description: "Thank you for contacting us. We'll get back to you within 24 hours.",
         });
 
         // Reset form
@@ -54,14 +62,29 @@ const Contact = () => {
           urgency: 'normal'
         });
       } else {
-        throw new Error(result.error || 'Failed to send message');
+        throw new Error('Failed to send message');
       }
     } catch (error) {
       console.error('Error sending email:', error);
+      
+      // Fallback to mailto link
+      const subject = encodeURIComponent(`New Contact Form Submission - ${formData.caseType}`);
+      const body = encodeURIComponent(`
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Case Type: ${formData.caseType}
+Urgency: ${formData.urgency}
+
+Message:
+${formData.message}
+      `);
+      
+      window.location.href = `mailto:litigation@moneoangattorneysinc.co.za?subject=${subject}&body=${body}`;
+      
       toast({
-        title: "Error Sending Message",
-        description: "There was a problem sending your message. Please try again or call us directly.",
-        variant: "destructive",
+        title: "Opening Email Client",
+        description: "We've opened your default email client to send the message.",
       });
     } finally {
       setIsSubmitting(false);
