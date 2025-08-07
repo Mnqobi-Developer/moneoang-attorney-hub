@@ -14,7 +14,8 @@ const Team = () => {
       education: 'LLB (University of the Witwatersrand), Admitted Attorney of the High Court',
       languages: ['English', 'Afrikaans', 'Sepedi', 'Tsonga'],
       description: 'Principal attorney with extensive experience in litigation and a passion for justice. Specializes in complex civil and criminal matters.',
-      achievements: ['High Court Advocate', 'Legal Aid Board Panel Attorney', 'Community Legal Clinic Volunteer']
+      achievements: ['High Court Advocate', 'Legal Aid Board Panel Attorney', 'Community Legal Clinic Volunteer'],
+      photo: '/lovable-uploads/1635f183-a069-48b6-b09f-48096390ee1d.png'
     },
     {
       id: 2,
@@ -73,10 +74,20 @@ const Team = () => {
                 <div className="flex flex-col space-y-6">
                   {/* Header */}
                   <div className="text-center">
-                    <div className="w-24 h-24 bg-legal-gold/20 rounded-full mx-auto mb-4 flex items-center justify-center">
-                      <span className="font-playfair text-2xl font-bold text-legal-navy">
-                        {member.name.split(' ').map(n => n[0]).join('')}
-                      </span>
+                    <div className="w-24 h-24 mx-auto mb-4 flex items-center justify-center">
+                      {member.photo ? (
+                        <img 
+                          src={member.photo} 
+                          alt={member.name}
+                          className="w-24 h-24 rounded-full object-cover border-2 border-legal-gold"
+                        />
+                      ) : (
+                        <div className="w-24 h-24 bg-legal-gold/20 rounded-full flex items-center justify-center">
+                          <span className="font-playfair text-2xl font-bold text-legal-navy">
+                            {member.name.split(' ').map(n => n[0]).join('')}
+                          </span>
+                        </div>
+                      )}
                     </div>
                     <h3 className="font-playfair text-2xl font-bold text-legal-navy mb-2">
                       {member.name}
