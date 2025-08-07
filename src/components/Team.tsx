@@ -16,39 +16,6 @@ const Team = () => {
       description: 'Principal attorney with extensive experience in litigation and a passion for justice. Specializes in complex civil and criminal matters.',
       achievements: ['High Court Advocate', 'Legal Aid Board Panel Attorney', 'Community Legal Clinic Volunteer'],
       photo: '/lovable-uploads/1635f183-a069-48b6-b09f-48096390ee1d.png'
-    },
-    {
-      id: 2,
-      name: 'T.R. Maluleke',
-      title: 'Senior Associate',
-      specialties: ['Family Law', 'Immigration Law', 'Estate Planning'],
-      experience: '10+ years',
-      education: 'LLB (University of Limpopo), Postgraduate Diploma in Immigration Law',
-      languages: ['English', 'Afrikaans', 'Tsonga', 'Venda'],
-      description: 'Dedicated family law specialist with a compassionate approach to sensitive legal matters. Expert in immigration procedures.',
-      achievements: ['Family Mediation Certificate', 'Immigration Specialist Certification', 'Women\'s Rights Advocate']
-    },
-    {
-      id: 3,
-      name: 'P.K. Mathebula',
-      title: 'Associate Attorney',
-      specialties: ['Labour Law', 'Debt Collection', 'Commercial Law'],
-      experience: '8+ years',
-      education: 'LLB (University of Pretoria), Labour Law Certificate (UNISA)',
-      languages: ['English', 'Afrikaans', 'Sepedi', 'Tsonga'],
-      description: 'Labour law expert with extensive experience in employment disputes and commercial transactions.',
-      achievements: ['CCMA Arbitrator', 'Commercial Litigation Specialist', 'Small Business Legal Advisor']
-    },
-    {
-      id: 4,
-      name: 'N.A. Chauke',
-      title: 'Junior Attorney',
-      specialties: ['RAF Claims', 'Personal Injury', 'Administrative Law'],
-      experience: '5+ years',
-      education: 'LLB (University of Venda), Certificate in Personal Injury Law',
-      languages: ['English', 'Tsonga', 'Sepedi', 'Venda'],
-      description: 'Rising star specializing in Road Accident Fund claims and personal injury litigation. Known for thorough case preparation.',
-      achievements: ['RAF Claims Specialist', 'Personal Injury Advocate', 'Pro Bono Service Award']
     }
   ];
 
@@ -67,7 +34,8 @@ const Team = () => {
         </div>
 
         {/* Team Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+        <div className="flex justify-center">
+          <div className="max-w-md w-full">
           {teamMembers.map((member) => (
             <Card key={member.id} className="overflow-hidden hover:shadow-xl transition-all duration-300 bg-white">
               <CardContent className="p-0">
@@ -162,6 +130,7 @@ const Team = () => {
               </CardContent>
             </Card>
           ))}
+          </div>
         </div>
 
         {/* Team Values */}
