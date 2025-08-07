@@ -8,7 +8,7 @@ const Team = () => {
     {
       id: 1,
       name: 'S.M. Moneoang',
-      title: 'Principal Attorney',
+      title: 'Senior Partner & Founder',
       specialties: ['Civil Litigation', 'Criminal Law', 'Constitutional Law'],
       experience: '15+ years',
       education: 'LLB (University of the Witwatersrand), Admitted Attorney of the High Court',
@@ -70,90 +70,94 @@ const Team = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
           {teamMembers.map((member) => (
             <Card key={member.id} className="overflow-hidden hover:shadow-xl transition-all duration-300 bg-white">
-              <CardContent className="p-8">
-                <div className="flex flex-col space-y-6">
-                  {/* Header */}
-                  <div className="text-center">
-                    <div className="w-24 h-24 mx-auto mb-4 flex items-center justify-center">
-                      {member.photo ? (
-                        <img 
-                          src={member.photo} 
-                          alt={member.name}
-                          className="w-24 h-24 rounded-full object-cover border-2 border-legal-gold"
-                        />
-                      ) : (
-                        <div className="w-24 h-24 bg-legal-gold/20 rounded-full flex items-center justify-center">
-                          <span className="font-playfair text-2xl font-bold text-legal-navy">
-                            {member.name.split(' ').map(n => n[0]).join('')}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                    <h3 className="font-playfair text-2xl font-bold text-legal-navy mb-2">
-                      {member.name}
-                    </h3>
-                    <p className="text-legal-gold font-semibold text-lg mb-2">
-                      {member.title}
-                    </p>
-                    <Badge className="bg-legal-navy text-white">
-                      {member.experience} Experience
-                    </Badge>
-                  </div>
-
-                  {/* Specialties */}
-                  <div>
-                    <h4 className="font-semibold text-legal-navy mb-3">Specializations</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {member.specialties.map((specialty, index) => (
-                        <Badge key={index} variant="outline" className="border-legal-gold text-legal-navy">
-                          {specialty}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-gray-600 leading-relaxed">
-                    {member.description}
-                  </p>
-
-                  {/* Education */}
-                  <div>
-                    <h4 className="font-semibold text-legal-navy mb-2">Education & Qualifications</h4>
-                    <p className="text-sm text-gray-600">
-                      {member.education}
-                    </p>
-                  </div>
-
-                  {/* Languages */}
-                  <div>
-                    <h4 className="font-semibold text-legal-navy mb-2">Languages</h4>
-                    <div className="flex flex-wrap gap-1">
-                      {member.languages.map((language, index) => (
-                        <span key={index} className="text-sm text-gray-600 bg-gray-100 px-2 py-1 rounded">
-                          {language}
+              <CardContent className="p-0">
+                <div className="flex flex-col">
+                  {/* Photo Section */}
+                  <div className="relative h-80 sm:h-96">
+                    {member.photo ? (
+                      <img 
+                        src={member.photo} 
+                        alt={member.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-legal-gold/20 flex items-center justify-center">
+                        <span className="font-playfair text-6xl font-bold text-legal-navy">
+                          {member.name.split(' ').map(n => n[0]).join('')}
                         </span>
-                      ))}
+                      </div>
+                    )}
+                  </div>
+                  
+                  {/* Content Section */}
+                  <div className="p-6 bg-legal-navy text-white space-y-4">
+                    {/* Header */}
+                    <div>
+                      <h3 className="font-playfair text-2xl font-bold text-legal-gold mb-2">
+                        {member.name}
+                      </h3>
+                      <p className="text-legal-gold font-semibold text-lg mb-3">
+                        {member.title}
+                      </p>
+                      <div className="flex items-center gap-2 mb-4">
+                        <div className="w-4 h-4 bg-legal-gold rounded-full flex-shrink-0"></div>
+                        <span className="text-white font-medium">
+                          {member.experience} Experience
+                        </span>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Achievements */}
-                  <div>
-                    <h4 className="font-semibold text-legal-navy mb-2">Notable Achievements</h4>
-                    <ul className="text-sm text-gray-600 space-y-1">
-                      {member.achievements.map((achievement, index) => (
-                        <li key={index} className="flex items-center">
-                          <div className="w-2 h-2 bg-legal-gold rounded-full mr-3 flex-shrink-0"></div>
-                          {achievement}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                    {/* Specialties */}
+                    <div>
+                      <h4 className="font-semibold text-legal-gold mb-3">Specialties:</h4>
+                      <p className="text-gray-300 mb-4">
+                        {member.specialties.join(', ')}
+                      </p>
+                    </div>
 
-                  {/* Contact Button */}
-                  <Button className="w-full bg-legal-gold hover:bg-legal-gold/90 text-legal-navy font-semibold">
-                    Consult with {member.name.split(' ')[0]}
-                  </Button>
+                    {/* Description */}
+                    <p className="text-gray-300 leading-relaxed mb-4">
+                      {member.description}
+                    </p>
+
+                    {/* Education */}
+                    <div className="mb-4">
+                      <h4 className="font-semibold text-legal-gold mb-2">Education & Qualifications</h4>
+                      <p className="text-sm text-gray-300">
+                        {member.education}
+                      </p>
+                    </div>
+
+                    {/* Languages */}
+                    <div className="mb-4">
+                      <h4 className="font-semibold text-legal-gold mb-2">Languages</h4>
+                      <div className="flex flex-wrap gap-1">
+                        {member.languages.map((language, index) => (
+                          <span key={index} className="text-sm text-gray-300 bg-gray-700 px-2 py-1 rounded">
+                            {language}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Achievements */}
+                    <div className="mb-6">
+                      <h4 className="font-semibold text-legal-gold mb-2">Notable Achievements</h4>
+                      <ul className="text-sm text-gray-300 space-y-1">
+                        {member.achievements.map((achievement, index) => (
+                          <li key={index} className="flex items-center">
+                            <div className="w-2 h-2 bg-legal-gold rounded-full mr-3 flex-shrink-0"></div>
+                            {achievement}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Contact Button */}
+                    <Button className="w-full bg-legal-gold hover:bg-legal-gold/90 text-legal-navy font-semibold">
+                      Consult with {member.name.split(' ')[0]}
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>
